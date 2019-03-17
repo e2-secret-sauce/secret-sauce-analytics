@@ -2,6 +2,11 @@
 
 Lamba functions to process data from Amazon S3 buckets
 
+### Package up the function code
+
+```bash
+7z a functions.zip lambda_function.py
+```
 
 ### Create the Lambda function
 
@@ -13,6 +18,7 @@ Lamba functions to process data from Amazon S3 buckets
        --handler lambda_function.handler 
        --zip-file fileb://functions.zip
 ``` 
+
 
 ### Update the function code
 
