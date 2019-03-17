@@ -1,6 +1,8 @@
 import json
 import logging
 import boto3
+import csv
+from io import BytesIO
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -17,6 +19,14 @@ def handler(event, context):
     for bucket in s3_resource.buckets.all():
        print(bucket.name)
 
+    bucket = s3_resource.Bucket('775297465882-secret-sauce-data')
+    obj = bucket.Object(fileToProcess)
+    response = obj.get()
+    
+    array = BytesIO(response['Body'].read())
+    for line in array:
+        print(line)
+    
     return {
         'statusCode': 200,
         'body': json.dumps('Hello from Lambda!')
