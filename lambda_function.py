@@ -32,11 +32,21 @@ def handler(event, context):
         travel_type = entry[6]
         print(ticket_class)
         print(travel_type)
-      
+    
+        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+        results_table = dynamodb.Table('secret-sauce-results')
+        
         if "coach" not in ticket_class and "domestic" in travel_type:
             employee = entry[1]
             logger.info(f'Violation Found [{employee}]')
-    
+            results_table.put_item(
+                Item={
+                    'uid': entry[1],
+                    'employee': entry[0],
+                    'violationCount': 1
+                }
+            )
+
     return {
         'statusCode': 200,
         'body': json.dumps('Hello from Lambda!')
