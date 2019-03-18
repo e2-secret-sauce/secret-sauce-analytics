@@ -30,9 +30,7 @@ def handler(event, context):
         entry = line.split(",")
         ticket_class = entry[5]
         travel_type = entry[6]
-        print(ticket_class)
-        print(travel_type)
-    
+
         dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         results_table = dynamodb.Table('secret-sauce-results')
         
